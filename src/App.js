@@ -7,24 +7,23 @@ function App() {
   const [result, setResult] = useState('');
 
   const AdditionFunction = async () => {
-    try {
-        const response = await fetch(
-            `/api/AdditionFunction?num1=${num1}&num2=${num2}`
-        );
+      try {
+          const response = await fetch(
+              `/api/AdditionFunction?num1=${num1}&num2=${num2}`
+          );
 
-        if (!response.ok) {
-            throw new Error('API request failed');
-        }
+          if (!response.ok) {
+              throw new Error(`API error: ${response.status}`);
+          }
 
-        const data = await response.text();
+          const data = await response.text();
+          setResult(data);
 
-        setResult(data);
-
-    } catch (error) {
-        console.error('Error:', error);
-        setResult('Could not connect to Azure Function');
-    }
-};
+      } catch (error) {
+          console.error('Error:', error);
+          setResult('Could not connect to AdditionFunction');
+      }
+  };
 
   return (
   <div>
